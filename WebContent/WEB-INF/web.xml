@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app>
+	<servlet>
+		<servlet-name>MyApplication</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer
+		</servlet-class>
+		<init-param>
+			<param-name>javax.ws.rs.Application</param-name>
+			<param-value>br.gov.presidencia.ProjetoApplication</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MyApplication</servlet-name>
+		<url-pattern>/myApp/*</url-pattern>
+	</servlet-mapping>
+</web-app> 
