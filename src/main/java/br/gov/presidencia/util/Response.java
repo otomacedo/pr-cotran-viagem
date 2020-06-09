@@ -13,6 +13,12 @@ public class Response implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Response(String mensagem, Integer codigo) {
+		this.codigo = codigo;
+		this.mensagem =  mensagem;
+	}
+	
+	
 	private String mensagem;
 	private Integer codigo;
 

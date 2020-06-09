@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 
 import br.gov.presidencia.dao.FuncionarioDAO;
 import br.gov.presidencia.entity.Funcionario;
@@ -24,16 +25,25 @@ public class FuncionarioRest {
 	
 	@POST
 	@Path("salvar")
-	public Funcionario salvarFuncionario(String funcionario) {
-//		funcionarioDAO.incluir(f);
-		return null;
+	public Response salvarFuncionario(Funcionario funcionario) {
+     try {
+    	funcionarioDAO.incluir(funcionario);
+ 		return new Response("salvo com sucesso",1);
+	} catch (Exception e) {
+		return new Response("Erro ao salvar Funcionário", 12);
+	}
+		
 	}
 	
 	@DELETE
 	@Path("excluir/{id}")
-	public Funcionario excluirFuncionario(@PathParam("id") Integer id) {
-		funcionarioDAO.excluir(id);
-		return null;
+	public Response excluirFuncionario(@PathParam("id") Integer id) {
+		try {
+			funcionarioDAO.excluir(id);
+			return new Response("excluído com sucesso",1);
+		} catch (Exception e) {
+			return new Response("Erro ao excluir",1);
+		}
 	}
 	
 	@GET
@@ -51,10 +61,14 @@ public class FuncionarioRest {
 		return funcionarioDAO.listar();
 	}
 	@PUT
-	@Path("alterar")
+	@Path("editar")
 	public Response alterarFuncionario(Funcionario funcionario) {
+	try {
 		funcionarioDAO.alterar(funcionario);
-		return null;
+		return new Response("Salvo com sucesso",1);
+	} catch (Exception e) {
+		return new Response("Erro ao alterar",2);
+	}
 	}
 	
 }
