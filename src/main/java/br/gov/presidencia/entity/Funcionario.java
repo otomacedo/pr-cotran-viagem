@@ -26,7 +26,7 @@ import javax.persistence.Id;
 	private String telefone;
 	private String rg;
 	private String orgaoExpedidorRg;
-	private String dtExpedicaoRg;	
+	private Date dtExpedicaoRg;	
 	private String cpf;
 	private String cnh;
 	private Date validadeCnh; 
@@ -110,10 +110,10 @@ import javax.persistence.Id;
 	public void setOrgaoExpedidorRg(String orgaoExpedidorRg) {
 		this.orgaoExpedidorRg = orgaoExpedidorRg;
 	}
-	public String getDtExpedicaoRg() {
+	public Date getDtExpedicaoRg() {
 		return dtExpedicaoRg;
 	}
-	public void setDtExpedicaoRg(String dtExpedicaoRg) {
+	public void setDtExpedicaoRg(Date dtExpedicaoRg) {
 		this.dtExpedicaoRg = dtExpedicaoRg;
 	}
 	public String getCpf() {
