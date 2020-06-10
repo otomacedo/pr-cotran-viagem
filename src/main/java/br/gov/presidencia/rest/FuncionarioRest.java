@@ -65,7 +65,7 @@ public class FuncionarioRest {
 	public Response alterarFuncionario(Funcionario funcionario) {
 	try {
 		funcionarioDAO.alterar(funcionario);
-		return new Response("Salvo com sucesso",1);
+		return new Response("Alterado com sucesso",1);
 	} catch (Exception e) {
 		return new Response("Erro ao alterar",2);
 	}
