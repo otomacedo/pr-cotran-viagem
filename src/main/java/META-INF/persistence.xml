@@ -10,7 +10,8 @@
 			<class>br.gov.presidencia.entity.Setor</class>
 			<class>br.gov.presidencia.entity.Departamento</class>
 			<class>br.gov.presidencia.entity.Gratificacao</class>
-			<class>br.gov.presidencia.entity.Graduacao</class>			
+			<class>br.gov.presidencia.entity.Graduacao</class>
+			<class>br.gov.presidencia.entity.TipoGratificacao</class>			
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/dbPr?useTimezone=true&amp;serverTimezone=UTC" />
 			<property name="javax.persistence.jdbc.user" value="root" />

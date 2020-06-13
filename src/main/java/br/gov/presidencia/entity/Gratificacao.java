@@ -1,11 +1,14 @@
 package br.gov.presidencia.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 @Entity
 public class Gratificacao implements Serializable {
 	private static final long serialVersionUID=1L;
@@ -16,8 +19,13 @@ public class Gratificacao implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idGratificacao;
+	
 	private String descricao;
 	
+	@OneToMany(cascade= CascadeType.ALL)
+	private List<TipoGratificacao> tipoGratificacoes;
+	
+		
 	public Long getIdGratificacao() {
 		return idGratificacao;
 	}
@@ -30,4 +38,11 @@ public class Gratificacao implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	public List<TipoGratificacao> getTipoGratificacoes() {
+		return tipoGratificacoes;
+	}
+	public void setTipoGratificacoes(List<TipoGratificacao> tipoGratificacoes) {
+		this.tipoGratificacoes = tipoGratificacoes;
+	}
+	
 }
