@@ -11,7 +11,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
 
 import br.gov.presidencia.dao.FuncionarioDAO;
 import br.gov.presidencia.entity.Funcionario;

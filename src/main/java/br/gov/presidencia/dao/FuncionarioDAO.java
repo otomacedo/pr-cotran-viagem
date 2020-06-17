@@ -49,7 +49,7 @@ public class FuncionarioDAO implements Serializable{
 		}
 	}
 
-	public Funcionario consultar(int id) {
+	public Funcionario consultar(long id) {
 		return this.em.find(Funcionario.class,id);
 	}
 	

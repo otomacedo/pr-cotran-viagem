@@ -30,6 +30,7 @@ public class Rh implements Serializable{
 	public Rh() {}
 	
 	@OneToMany(cascade= CascadeType.ALL)
+	@JoinColumn(name="idFerias")
 	private List<Ferias> ferias;
 	
 	@OneToOne

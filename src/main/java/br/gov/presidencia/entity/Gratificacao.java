@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 @Entity
 public class Gratificacao implements Serializable {
@@ -23,6 +24,7 @@ public class Gratificacao implements Serializable {
 	private String descricao;
 	
 	@OneToMany(cascade= CascadeType.ALL)
+	@JoinColumn(name="idTipoGratificacao")
 	private List<TipoGratificacao> tipoGratificacoes;
 	
 		
