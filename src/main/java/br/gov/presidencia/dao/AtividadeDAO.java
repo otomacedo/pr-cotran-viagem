@@ -53,7 +53,7 @@ public class AtividadeDAO implements Serializable{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Atividade> listar() {
+	public List<Atividade> listar(long id) {
 		Query q = this.em.createQuery("SELECT c FROM Atividade c");
 		return q.getResultList();
 	}

@@ -52,7 +52,7 @@ public class SetorDAO implements Serializable{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Setor> listar() {
+	public List<Setor> listar(long id) {
 		Query q = this.em.createQuery("SELECT c FROM Setor c");
 		return q.getResultList();
 	}
