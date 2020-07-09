@@ -5,13 +5,15 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import br.gov.presidencia.entity.Funcionario;
+import org.hibernate.Session;
+
+import br.gov.presidencia.dao.conexao.HibernateUtil;
 import br.gov.presidencia.entity.Rh;
 
 public class RhDAO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
+	private Session s = HibernateUtil.getSessionFactory().openSession();
 	private javax.persistence.EntityManager em;
 	
 	public RhDAO() {
@@ -29,8 +31,9 @@ public class RhDAO implements Serializable{
 		}
 	}
 
-	public boolean excluir(Rh rh) {
+	public boolean excluir(Integer id) {
 		this.em.getTransaction().begin();
+		Rh rh = consultar(id);
 		this.em.remove(rh);
 		try {
 			this.em.getTransaction().commit();
@@ -56,15 +59,15 @@ public class RhDAO implements Serializable{
 		return this.em.find(Rh.class,id);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Rh> listar() {
-		Query q = this.em.createQuery("SELECT c FROM Rh c");
-		return q.getResultList();
+		List<Rh> r = s.createQuery("from Rh", Rh.class).list();
+		s.close();
+		return r;
 	}
 	
-	public Rh consultarPorFuncionario(Funcionario funcionario) {
-		Query q = this.em.createQuery("SELECT r FROM Rh r WHERE r.funcionario.idFuncionario = "+funcionario.getIdFuncionario());
-		return  q.getResultList().isEmpty() ? null : (Rh) q.getResultList().get(0);
+	public Rh consultarPorFuncionario(Integer idFuncionario) {
+		Query q = this.em.createQuery("SELECT r FROM Rh r WHERE r.funcionario.idFuncionario = "+idFuncionario);
+		return  q.getResultList().isEmpty() ? new Rh() : (Rh) q.getResultList().get(0);
 	}
 
 }

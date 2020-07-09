@@ -2,6 +2,7 @@ package br.gov.presidencia.rest;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,6 +18,7 @@ import br.gov.presidencia.entity.Funcionario;
 import br.gov.presidencia.util.Response;
 
 @Path("/funcionario")
+@Transactional
 public class FuncionarioRest {
 	
 	

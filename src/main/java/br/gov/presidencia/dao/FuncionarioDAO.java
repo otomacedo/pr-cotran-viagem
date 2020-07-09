@@ -3,12 +3,13 @@ package br.gov.presidencia.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Query;
+import org.hibernate.Session;
 
+import br.gov.presidencia.dao.conexao.HibernateUtil;
 import br.gov.presidencia.entity.Funcionario;
 
 public class FuncionarioDAO implements Serializable{
-	
+	private Session s = HibernateUtil.getSessionFactory().openSession();
 	private static final long serialVersionUID = 1L;
 	private javax.persistence.EntityManager em;
 
@@ -29,10 +30,10 @@ public class FuncionarioDAO implements Serializable{
 	}
 
 	public boolean excluir(Integer idFuncionario) {
-		this.em.getTransaction().begin();
-		Funcionario removerFuncionario = consultar(idFuncionario);
-		this.em.remove(removerFuncionario);
 		try {
+			em.getTransaction().begin();
+			Funcionario funcionario = consultar(idFuncionario);
+			this.em.remove(funcionario);
 			this.em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
@@ -49,14 +50,14 @@ public class FuncionarioDAO implements Serializable{
 		}
 	}
 
-	public Funcionario consultar(long id) {
+	public Funcionario consultar(Integer id) {
 		return this.em.find(Funcionario.class,id);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Funcionario> listar() {
-		Query q = this.em.createQuery("SELECT c FROM Funcionario c");
-		return q.getResultList();
+		List<Funcionario> f = s.createQuery("from Funcionario", Funcionario.class).list();
+		s.close();
+		return f;
 	}
 	
 }

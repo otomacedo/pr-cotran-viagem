@@ -2,6 +2,7 @@ package br.gov.presidencia.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,9 +16,8 @@ public class Graduacao implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idGraduacao;
+	@Column(name="descricao")
 	private String descricao;
-	
-	
 	
 	public Long getIdGraduacao() {
 		return idGraduacao;

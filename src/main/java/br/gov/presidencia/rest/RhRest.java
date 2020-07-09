@@ -7,11 +7,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.gov.presidencia.dao.RhDAO;
 import br.gov.presidencia.entity.Rh;
+import br.gov.presidencia.util.Response;
 
 @Path(value = "rh")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -20,30 +22,53 @@ import br.gov.presidencia.entity.Rh;
 public class RhRest {
 	RhDAO rhdao= new RhDAO();
 
-	@POST
-	@Path("salvar")
-	public Rh salvarRh(Rh rh) {
+	@POST	
+	@Path("salvarRh")
+	public Response salvarRh(Rh rh) {
+	try {
 		rhdao.incluir(rh);
-		return null;
+		return new Response("RH Salvo com Sucesso",1);
+	} catch (Exception e) {
+		return new Response("Erro ao salvar RH",2);
 	}
+	}
+	
 	@PUT
-	@Path("alterar")
-	public Rh alterarRh(Rh rh) {
+	@Path("editarRh")
+	public Response alterarRh(Rh rh) {
+	try {
 		rhdao.alterar(rh);
-		return null;
+		return new Response("RH Alterado com sucesso!",1);
+	} catch (Exception e) {
+		return new Response("Erro ao Alterar RH",2);
+	}	
 	}
 
 	@GET
-	@Path("consultar")
+	@Path("consultarRh")
 	public Rh consultarRh(Rh rh) {
 		rhdao.consultar(rh.getIdRh() );
 		return null;
 	}
 	@DELETE
-	@Path("excluir")	
-	public Rh excluirRh(Rh rh) {
-		rhdao.excluir(rh);
-		return null;
+	@Path("excluirRh/{id}")	
+	public Response excluirRh(@PathParam("id") Integer id ) {
+		try {
+			rhdao.excluir(id);
+			return new Response("RH excluido com sucesso!",1);
+		} catch (Exception e) {
+			return new Response("Erro ao excluir RH!",2);
+		}
+	}
+	
+	@GET
+	@Path("consultarRhPorFuncionario/{id}")
+	public Rh consultarRhPorFuncionario(@PathParam("id") Integer id ) {
+		try {
+			return rhdao.consultarPorFuncionario(id);
+		} catch (Exception e) {
+			return new Rh();
+		}
 	}
 	
 }

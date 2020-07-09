@@ -8,8 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class Gratificacao implements Serializable {
 	private static final long serialVersionUID=1L;
@@ -22,12 +23,10 @@ public class Gratificacao implements Serializable {
 	private Long idGratificacao;
 	
 	private String descricao;
-	
-	@OneToMany(cascade= CascadeType.ALL)
-	@JoinColumn(name="idTipoGratificacao")
+	@JsonManagedReference
+	@OneToMany(cascade= CascadeType.ALL, mappedBy="gratificacao")
 	private List<TipoGratificacao> tipoGratificacoes;
 	
-		
 	public Long getIdGratificacao() {
 		return idGratificacao;
 	}
@@ -38,7 +37,7 @@ public class Gratificacao implements Serializable {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao;  
 	}
 	public List<TipoGratificacao> getTipoGratificacoes() {
 		return tipoGratificacoes;

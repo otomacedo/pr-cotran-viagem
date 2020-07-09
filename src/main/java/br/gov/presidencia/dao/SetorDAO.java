@@ -3,13 +3,14 @@ package br.gov.presidencia.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Query;
+import org.hibernate.Session;
 
+import br.gov.presidencia.dao.conexao.HibernateUtil;
 import br.gov.presidencia.entity.Setor;
 
 public class SetorDAO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+	private Session s = HibernateUtil.getSessionFactory().openSession();
 	private javax.persistence.EntityManager em;
 
 	public SetorDAO () {
@@ -27,11 +28,12 @@ public class SetorDAO implements Serializable{
 		}
 	}
 
-	public boolean excluir(Setor setor) {
+	public boolean excluir(Long id) {
 		this.em.getTransaction().begin();
+		Setor setor = consultar(id);
 		this.em.remove(setor);
+		em.getTransaction().commit();
 		try {
-			this.em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -51,10 +53,10 @@ public class SetorDAO implements Serializable{
 		return this.em.find(Setor.class,id);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<Setor> listar(long id) {
-		Query q = this.em.createQuery("SELECT c FROM Setor c");
-		return q.getResultList();
+	public List<Setor> listar() {
+		List<Setor> t = s.createQuery("from Setor", Setor.class).list();
+		s.close();
+		return t;
 	}
 }
 

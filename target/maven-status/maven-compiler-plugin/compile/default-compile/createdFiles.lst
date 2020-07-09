@@ -20,6 +20,7 @@ br\gov\presidencia\dao\TipoGratificacaoDAO.class
 br\gov\presidencia\entity\Atividade.class
 br\gov\presidencia\dao\ConexaoFactory.class
 br\gov\presidencia\rest\RhRest.class
+br\gov\presidencia\dao\conexao\HibernateUtil.class
 br\gov\presidencia\dao\DepartamentoDAO.class
 br\gov\presidencia\dao\SetorDAO.class
 br\gov\presidencia\entity\Ferias.class

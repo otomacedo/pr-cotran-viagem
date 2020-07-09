@@ -3,8 +3,9 @@ package br.gov.presidencia.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Query;
+import org.hibernate.Session;
 
+import br.gov.presidencia.dao.conexao.HibernateUtil;
 import br.gov.presidencia.entity.Graduacao;
 
 
@@ -28,11 +29,12 @@ public class GraduacaoDAO implements Serializable {
 		}
 	}
 
-	public boolean excluir(Graduacao graduacao) {
+	public boolean excluir(Long id) {
 		this.em.getTransaction().begin();
+		Graduacao graduacao = consultar(id);
 		this.em.remove(graduacao);
+		em.getTransaction().commit();
 		try {
-			this.em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -52,10 +54,11 @@ public class GraduacaoDAO implements Serializable {
 		return this.em.find(Graduacao.class,id);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Graduacao> listar() {
-		Query q = this.em.createQuery("SELECT c FROM Graduacao c");
-		return q.getResultList();
+		Session s = HibernateUtil.getSessionFactory().openSession();
+		List<Graduacao> g = s.createQuery("from Graduacao", Graduacao.class).list();
+		s.close();
+		return g;
 	}
 
 }

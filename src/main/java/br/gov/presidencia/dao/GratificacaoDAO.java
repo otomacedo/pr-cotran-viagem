@@ -3,15 +3,16 @@ package br.gov.presidencia.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Query;
+import org.hibernate.Session;
 
+import br.gov.presidencia.dao.conexao.HibernateUtil;
 import br.gov.presidencia.entity.Gratificacao;
 
 public class GratificacaoDAO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private javax.persistence.EntityManager em;
-
+	private Session s = HibernateUtil.getSessionFactory().openSession();
 	public GratificacaoDAO () {
 		this.em = ConexaoFactory.getEntityManager();
 	}
@@ -27,11 +28,12 @@ public class GratificacaoDAO implements Serializable {
 		}
 	}
 
-	public boolean excluir(Gratificacao gratificacao) {
+	public boolean excluir(Long id) {
 		this.em.getTransaction().begin();
+		Gratificacao gratificacao = consultar(id);
 		this.em.remove(gratificacao);
+		em.getTransaction().commit();
 		try {
-			this.em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -50,10 +52,10 @@ public class GratificacaoDAO implements Serializable {
 	public Gratificacao consultar(long id) {
 		return this.em.find(Gratificacao.class,id);
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	public List<Gratificacao> listar() {
-		Query q = this.em.createQuery("SELECT c FROM Gratificacao c");
-		return q.getResultList();
+		List<Gratificacao> g = s.createQuery("from Gratificacao", Gratificacao.class).list();
+		return g;
+	
 	}
 }

@@ -3,8 +3,9 @@ package br.gov.presidencia.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Query;
+import org.hibernate.Session;
 
+import br.gov.presidencia.dao.conexao.HibernateUtil;
 import br.gov.presidencia.entity.Ferias;
 
 	public class FeriasDAO implements Serializable{
@@ -12,7 +13,7 @@ import br.gov.presidencia.entity.Ferias;
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		
+		private Session s = HibernateUtil.getSessionFactory().openSession();
 		private javax.persistence.EntityManager em;
 		
 		public FeriasDAO() {
@@ -53,10 +54,10 @@ import br.gov.presidencia.entity.Ferias;
 			return this.em.find(Ferias.class,id);
 		}
 		
-		@SuppressWarnings("unchecked")
 		public List<Ferias> listar() {
-			Query q = this.em.createQuery("SELECT c FROM Ferias c");
-			return q.getResultList();
+			List<Ferias> f = s.createQuery("from Ferias", Ferias.class).list();
+			s.close();
+			return f;
 		}
 	
 	

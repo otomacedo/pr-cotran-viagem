@@ -3,15 +3,16 @@ package br.gov.presidencia.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Query;
+import org.hibernate.Session;
 
+import br.gov.presidencia.dao.conexao.HibernateUtil;
 import br.gov.presidencia.entity.Departamento;
 
 public class DepartamentoDAO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private javax.persistence.EntityManager em;
-
+	private Session s = HibernateUtil.getSessionFactory().openSession();
 	public DepartamentoDAO () {
 		this.em = ConexaoFactory.getEntityManager();
 	}
@@ -27,11 +28,12 @@ public class DepartamentoDAO implements Serializable {
 		}
 	}
 
-	public boolean excluir(Departamento departamento) {
+	public boolean excluir(Long id) {
 		this.em.getTransaction().begin();
+		Departamento departamento = consultar(id);
 		this.em.remove(departamento);
+		em.getTransaction().commit();
 		try {
-			this.em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -51,10 +53,10 @@ public class DepartamentoDAO implements Serializable {
 		return this.em.find(Departamento.class,id);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Departamento> listar() {
-		Query q = this.em.createQuery("SELECT c FROM Departamento c");
-		return q.getResultList();
+		List<Departamento> a = s.createQuery("from Departamento", Departamento.class).list();
+		s.close();
+		return a;
 	}
 	
 }

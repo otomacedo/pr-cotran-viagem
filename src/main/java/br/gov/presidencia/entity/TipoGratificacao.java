@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class TipoGratificacao implements Serializable {
@@ -17,6 +20,9 @@ public class TipoGratificacao implements Serializable {
 	private Integer idTipoGratificacao;
 		
 	private String tipo;
+	@JsonBackReference
+	@ManyToOne
+	private Gratificacao gratificacao;
 	
 	
 	public Integer getIdTipoGratificacao() {
@@ -26,13 +32,16 @@ public class TipoGratificacao implements Serializable {
 		this.idTipoGratificacao = idTipoGratificacao;
 	}
 	public String getTipo() {
-		return tipo;
+		return tipo; 
 	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-	
-	
+	public Gratificacao getGratificacao() {
+		return gratificacao;
+	}
+	public void setGratificacao(Gratificacao gratificacao) {
+		this.gratificacao = gratificacao;
+	}	
 	                          
 }

@@ -5,12 +5,16 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.hibernate.Session;
+
+import br.gov.presidencia.dao.conexao.HibernateUtil;
 import br.gov.presidencia.entity.TipoGratificacao;
 
 public class TipoGratificacaoDAO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private javax.persistence.EntityManager em;
+	Session s = HibernateUtil.getSessionFactory().openSession();
 	
 	public TipoGratificacaoDAO() {
 		this.em = ConexaoFactory.getEntityManager();
