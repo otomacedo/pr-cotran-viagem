@@ -22,9 +22,22 @@ public class RhDAO implements Serializable{
 	
 	public boolean incluir(Rh rh) {
 		try {
-			em.getTransaction().begin();
-			this.em.persist(rh);
-			this.em.flush();
+			s.getTransaction().begin();
+			s.createNativeQuery("insert into rh values (?,?,?,?,?,?,?,?,?,?,?,?)")
+			.setParameter(1, null)
+			.setParameter(2, 1)
+			.setParameter(3, rh.getMatriculaPr())
+			.setParameter(4, rh.getMatriculaSiape())
+			.setParameter(5, rh.getOrgaoOrigem())
+			.setParameter(6, rh.getPossePr())
+			.setParameter(7, rh.getAtividade().getIdAtividade())
+			.setParameter(8, rh.getDepartamento().getIdDepartamento())
+			.setParameter(9, rh.getFuncionario().getIdFuncionario())
+			.setParameter(10, rh.getGraduacao().getIdGraduacao())
+			.setParameter(11, rh.getGratificacao().getIdGratificacao())
+			.setParameter(12, rh.getSetor().getIdSetor()).executeUpdate();
+			
+			s.getTransaction().commit();
 			return true;
 		} catch (Exception e) { 
 			return false;

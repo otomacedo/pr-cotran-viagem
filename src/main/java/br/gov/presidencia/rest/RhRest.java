@@ -60,7 +60,7 @@ public class RhRest {
 			return new Response("Erro ao excluir RH!",2);
 		}
 	}
-	
+	 
 	@GET
 	@Path("consultarRhPorFuncionario/{id}")
 	public Rh consultarRhPorFuncionario(@PathParam("id") Integer id ) {
